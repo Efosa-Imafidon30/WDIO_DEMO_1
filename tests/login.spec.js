@@ -156,4 +156,26 @@ describe('Login Test Suite', () => {
     var rememberPasswordCeckbox = await LoginPage.rememberLoginCheckbox;
     assert.strictEqual(await rememberPasswordCeckbox.isSelected(), true, 'checkbox is not selected');
   });
+
+  it.only('should not remember login creds', async () => {
+    await browser.url('');
+
+    await LoginPage.enterEmail('1@2.com');
+    await LoginPage.enterPassword('password');
+
+    await LoginPage.clickOnSubmitButton();
+
+    var logoutButton = await HeaderPage.logoutButton;
+    await logoutButton.click();
+
+    var emailField = await LoginPage.emailField;
+    assert.strictEqual(await emailField.getValue(), '', 'value are not the same');
+
+    var passwordField = await LoginPage.passwordField;
+    var value = await passwordField.getValue();
+    assert.strictEqual(await value.length, 0, 'Password is too short');
+
+    var rememberPasswordCeckbox = await LoginPage.rememberLoginCheckbox;
+    assert.strictEqual(await rememberPasswordCeckbox.isSelected(), false, 'checkbox is not selected');
+  });
 });

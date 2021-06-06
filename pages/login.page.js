@@ -34,6 +34,18 @@ class LoginPage {
   get overlay() {
     return $('#overlay');
   }
+
+  async enterEmail(username) {
+    await (await this.emailField).setValue(username);
+  }
+
+  async enterPassword(password) {
+    await (await this.passwordField).setValue(password);
+  }
+
+  async clickOnSubmitButton() {
+    await (await this.submitButton).click();
+  }
 }
 
 module.exports = new LoginPage();
